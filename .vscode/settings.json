@@ -2,7 +2,7 @@
     "cSpell.words": ["nami", "Nami", "pfadfinden", "taetigkeit", "taetigkeiten", "tätigkeit", "weiterleitung"],
     "editor.wordwrap": "off",
     "editor.wordWrapColumn": 160,
-    "editor.rulers": [160],
+    "editor.rulers": [161],
     "prettier.proseWrap": "never",
     "editor.wordWrap": "wordWrapColumn",
     "files.exclude": { "**/.prettierrc.*": true }
