@@ -1,7 +1,7 @@
 """
 Der code erstellt aus der Outlook user.csv 
     1. eine übersichtbare Tabelle aller Daten
-    2. eine tabelle mit allen Weiterleitungen
+    2. eine Tabelle mit allen Weiterleitungen
     3. eine Tabelle mit allen Postfächern
     4. eine Tabelle mit allen Adressen die nicht nach Personen benannt wurden
 

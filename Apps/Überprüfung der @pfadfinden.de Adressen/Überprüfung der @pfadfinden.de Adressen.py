@@ -86,11 +86,11 @@ def filterTaetigkeit(userId, filterIDs):
         return([["ERROR3"], ["ERROR3"]])
 
 
-def getUserBundesTätigkeit(mitglied_vorname, mitglied_nachname):
+def getUserBundesTätigkeit(Mitglied_Vorname, Mitglied_Nachname):
     letzteTaetigkeit = []
     letzteTaetigkeitDatum = []
     try:
-        user = nami.user(mitglied_vorname, mitglied_nachname)
+        user = nami.user(Mitglied_Vorname, Mitglied_Nachname)
         if user == []:
             return([["ERROR1"], ["ERROR1"]])
 
