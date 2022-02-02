@@ -5,8 +5,8 @@ Das Programm überprüft für die @pfadfinden.de Adressen, ob die Mitglieder noc
 import pathlib
 from operator import itemgetter
 
-from APITools import Console as c
-from APITools import Nami
+from Apps.APITools import Console as c
+from Apps.APITools import Nami
 from decouple import config
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
