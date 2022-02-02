@@ -7,11 +7,17 @@ from operator import itemgetter
 
 from APITools import Console as c
 from APITools import Nami
+from decouple import config
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
-from userconf import user
+
 
 # variables
+class user():
+    username = config('USERNAME')
+    password = config('PASSWORD')
+
+
 path = str(pathlib.Path(__file__).parent.resolve())
 config = []
 nami = Nami(config)
