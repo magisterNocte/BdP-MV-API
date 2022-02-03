@@ -2,26 +2,28 @@
 Überprüfung der @pfadfinden.de Adressen
 Das Programm überprüft für die @pfadfinden.de Adressen, ob die Mitglieder noch aktive Funktionen auf Bundesebene haben
 """
+
+
 import pathlib
 from operator import itemgetter
 
-from Apps.APITools import Console as c
-from Apps.APITools import Nami
 from decouple import config
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
 
+from Tools.APITools import Console as c
+from Tools.APITools import Nami
 
 # variables
-class user():
-    username = config('USERNAME')
-    password = config('PASSWORD')
+
+username = config("USER")
+password = config("PASSWORD")
 
 
 path = str(pathlib.Path(__file__).parent.resolve())
 config = []
 nami = Nami(config)
-nami.auth(user.username, user.password)
+nami.auth(username, password)
 
 # excel initialization
 sourceWbPostfach = load_workbook(
