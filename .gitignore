@@ -134,4 +134,4 @@ dmypy.json
 !.vscode/*.code-snippets
 
 #Excel
-.xlsx
+*.xlsx
