@@ -34,9 +34,10 @@ def fillInExcel(userDetails, thisRow):
             sourceWs["C"+ thisRow] = userDetails[1]["strasse"]
             sourceWs["D"+  thisRow] = userDetails[1]["plz"] + " " + userDetails[1]["ort"]
             sourceWs["E"+  thisRow] = "m" if userDetails[1]["geschlecht"] == "männlich" else "w"
-            sourceWs["F"+ thisRow] = UID.stammesIdToLV(userDetails[1]["gruppierung"])[0]
-            sourceWs["E"+ thisRow] = "E"
-            sourceWs["H"+ thisRow] = UID.stammesIdToLV(userDetails[1]["gruppierung"])[1]
+            sourceWs["F"+ thisRow] = UID.plzZuBundesland(userDetails[1]["plz"])
+            sourceWs["G"+ thisRow] = "E"
+            sourceWs["H"+ thisRow] = UID.userFunktion(nami, userDetails[0], UID.bulaTätigkeitenIDs)[0:-8]
+            sourceWs["I"+ thisRow] = UID.stammesIdToLV(userDetails[1]["gruppierung"])[1]
             
         else:
             sourceWs["C"+ thisRow] = userDetails[0]
