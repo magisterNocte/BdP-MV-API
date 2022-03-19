@@ -89,9 +89,21 @@ class Nami(object):
     
     
     def schulungAnlegen(self,mglied,schulung,method="POST"):
-        url = f'https://mv.meinbdp.de/ica/rest/nami/mitglied-ausbildung/filtered-for-navigation/mitglied/mitglied/57755/flist?_dc=1647604616225&page=1&start=0&limit=10'
-        r = self.s.request(method, url)
-        return self._check_response(r)
+        payload = {
+            "baustein": None,
+            "bausteinId": 17,
+            "mitglied": "Menge, Yannik",
+            "vstgTag": "2022-03-19T00:00:00",
+            "vstgName": "",
+            "veranstalter": "",
+            "lastModifiedFrom": None
+            }
+        url = f'ttps://mv.meinbdp.de/ica/rest/nami/mitglied-ausbildung/filtered-for-navigation/mitglied/mitglied/57755'
+        r = self.s.post(url, data=payload)
+        if r.status_code != 200:
+            raise ValueError('mod failed')
+
+        return self.s
 
 class Console():
     def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=100, fill='█', printEnd="\r"):

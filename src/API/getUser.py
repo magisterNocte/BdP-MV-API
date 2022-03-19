@@ -181,3 +181,5 @@ class UserIDAndData(object):
             return "ERROR: Fehler bei den tätigkeiten"
 
 
+    def schulungAnlegen(nami, userID):
+        nami.schulungAnlegen()
