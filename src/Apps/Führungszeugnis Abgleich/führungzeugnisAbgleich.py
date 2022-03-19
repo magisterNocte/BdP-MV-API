@@ -13,6 +13,5 @@ nami = Nami(config)
 nami.auth(username, password)
 
 
-print(Nami.fuehrungsZeugnis(nami, "57755"))
+print(Nami.fuehrungsZeugnisInfo(nami, "57755")[0]["entries_erstelltAm"])
 
-print(Nami.user(nami, "yannik", "menge"))
