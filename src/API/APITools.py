@@ -75,18 +75,23 @@ class Nami(object):
         r = self.s.request(method, url)
         return self._check_response(r)
 
-    def fuehrungsZeugnis(self, mglied, method='GET'):
+    def fuehrungsZeugnisInfo(self, mglied, method='GET'):
         url = "%s/ica/rest/nami/mitglied-sgb-acht/filtered-for-navigation/empfaenger/empfaenger/%s/flist?_dc = 1646639062672 & page = 1 & start = 0 & limit = 10" % (
             self.config['server'], mglied)
         r = self.s.request(method, url)
         return self._check_response(r)
 
     def userById(self,mglied,method="GET"):
+    
         url = f'https://mv.meinbdp.de/ica/rest/nami/mitglied/filtered-for-navigation/gruppierung/gruppierung/253/{mglied}?_dc=1647435214372'
         r = self.s.request(method, url)
         return self._check_response(r)
-
     
+    
+    def schulungAnlegen(self,mglied,schulung,method="POST"):
+        url = f'https://mv.meinbdp.de/ica/rest/nami/mitglied-ausbildung/filtered-for-navigation/mitglied/mitglied/57755/flist?_dc=1647604616225&page=1&start=0&limit=10'
+        r = self.s.request(method, url)
+        return self._check_response(r)
 
 class Console():
     def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=100, fill='█', printEnd="\r"):

@@ -20,12 +20,6 @@ nami.auth(username, password)
 sourceWb = load_workbook(path + "\data\data.xlsx")
 sourceWs= sourceWb.active
 
-def getDocLength(sourceWs): # muss auch ausgesondert werden
-    i = 1
-    while sourceWs["A" + str(i)].value != None:
-        i += 1
-    return i
-
 def fillInExcel(userDetails, thisRow):
 
     try:    
@@ -38,7 +32,7 @@ def fillInExcel(userDetails, thisRow):
             sourceWs["G"+ thisRow] = "E"
             sourceWs["H"+ thisRow] = UID.userFunktion(nami, userDetails[0], UID.bulaTätigkeitenIDs)[0:-8]
             sourceWs["I"+ thisRow] = UID.stammesIdToLV(userDetails[1]["gruppierung"])[1]
-            
+            sourceWs["J"+ thisRow] = UID.getUserefZInfo(nami,userDetails[0])
         else:
             sourceWs["C"+ thisRow] = userDetails[0]
     except:

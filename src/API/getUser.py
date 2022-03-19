@@ -108,8 +108,6 @@ class UserIDAndData(object):
             return ["ERROR: compareUserDataToInput"]
         
 
-
-
     def getUserIDAndData(nami, user, vorname, name):
         try:
             if user == []:
@@ -121,7 +119,13 @@ class UserIDAndData(object):
         except:
             return ["ERROR: getUserID"]
 
-        
+
+    def getUserefZInfo(nami,user):
+        try:
+            return Nami.fuehrungsZeugnisInfo(nami, user)[0]["entries_erstelltAm"]
+        except:
+            return "ERROR: Kein efz Eintrag!"
+
 
     def stammesIdToLV(stammesID):
     
@@ -162,9 +166,6 @@ class UserIDAndData(object):
         for item in plzCsv:
             if item["ï»¿PLZ"] == plz:
                 return item["Bundesland"]
-
-        
-
 
 
     def userFunktion(nami, userId, filterList):
