@@ -1,3 +1,4 @@
+
 import pathlib
 
 from API.APITools import Nami
@@ -11,10 +12,9 @@ username = config("USER")
 password = config("PASSWORD")
 
 
-
 config = []
 nami = Nami(config)
 nami.auth(username, password)
 
 
-UID.schulungAnlegen()
+print(UID.userTätigkeit(nami, 57755, UID.hauptamtlicheIDs, dateToCompare=365))

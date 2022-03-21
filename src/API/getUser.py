@@ -1,6 +1,8 @@
 import csv
 import pathlib
+from datetime import datetime, timedelta
 from operator import itemgetter
+from subprocess import check_call
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
@@ -86,6 +88,9 @@ class UserIDAndData(object):
 
 
     ]
+    hauptamtlicheIDs = [
+        "(116)"
+    ]
 
     def compareUserDataToInput(user, vorname, nachname):
         returnVar = []
@@ -158,23 +163,37 @@ class UserIDAndData(object):
                 return ["BUND", "BUND"]
 
     def plzZuBundesland(plz):
+
         f = open(UserIDAndData.path + '\data\plzListe.csv')
+
         plzCsv = csv.DictReader(f, delimiter=';')
         for item in plzCsv:
             if item["ï»¿PLZ"] == plz:
                 return item["Bundesland"]
 
-    def userFunktion(nami, userId, filterList):
+        return "ERROR: PLZ zu Bundesland geht nicht"
 
+    def userTätigkeit(nami, userId, filterList, dateToCompare=0):
         try:
             for i in nami.taetigkeit(userId):
                 for x in filterList:
-                    if x in i['entries_taetigkeit']:
-                        return i['entries_taetigkeit']
-            return "keine Tätigkeit (ERROR)"
+                    if not x in i['entries_taetigkeit']:
+                        continue
+                    if not UserIDAndData.checkValidDate(i["entries_aktivBis"], dateToCompare):
+                        continue
+                    return i['entries_taetigkeit']
+            return "ERROR: keine Tätigkeit (ERROR)"
 
         except:
             return "ERROR: Fehler bei den tätigkeiten"
+
+    def checkValidDate(date, dayOffsetDays=0):
+        datetime_obj = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+        if not date:
+            return True
+        if datetime.now() + timedelta(days=dayOffsetDays) > datetime_obj:
+            return False
+        return True
 
     def schulungAnlegen(nami, userID):
         nami.schulungAnlegen()
