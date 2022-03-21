@@ -11,10 +11,9 @@ username = config("USER")
 password = config("PASSWORD")
 
 
-
 config = []
 nami = Nami(config)
 nami.auth(username, password)
 
-
+# hier fehlt noch ganz viel
 UID.schulungAnlegen()
