@@ -2,7 +2,6 @@ import csv
 import pathlib
 from operator import itemgetter
 
-from decouple import config
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
 
