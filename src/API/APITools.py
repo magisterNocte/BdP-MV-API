@@ -20,8 +20,7 @@ class NamiHTTPError(Exception):
 
 
 class Nami(object):
-    
-    
+
     def __init__(self, config):
         self.s = requests.Session()
         self.config = {
@@ -58,7 +57,7 @@ class Nami(object):
 
     def user(self, mitglied_vorname, mitglied_nachname, method='GET'):
         url = f'https://mv.meinbdp.de/ica/rest/nami/search-multi/result-list?_dc=1636399371787&searchedValues=%7B%22vorname%22%3A%22{mitglied_vorname}%22%2C%22nachname%22%3A%22{mitglied_nachname}%22%2C%22spitzname%22%3A%22%22%2C%22mitgliedsNummber%22%3A%22%22%2C%22mglWohnort%22%3A%22%22%2C%22alterVon%22%3A%22%22%2C%22alterBis%22%3A%22%22%2C%22mglStatusId%22%3Anull%2C%22funktion%22%3A%22%22%2C%22mglTypeId%22%3A%5B%5D%2C%22organisation%22%3A%22%22%2C%22tagId%22%3A%5B%5D%2C%22bausteinIncludedId%22%3A%5B%5D%2C%22zeitschriftenversand%22%3Afalse%2C%22searchName%22%3A%22%22%2C%22taetigkeitId%22%3A%5B%5D%2C%22untergliederungId%22%3A%5B%5D%2C%22mitAllenTaetigkeiten%22%3Afalse%2C%22withEndedTaetigkeiten%22%3Afalse%2C%22ebeneId%22%3Anull%2C%22grpNummer%22%3A%22%22%2C%22grpName%22%3A%22%22%2C%22gruppierung1Id%22%3Anull%2C%22gruppierung2Id%22%3Anull%2C%22gruppierung3Id%22%3Anull%2C%22gruppierung4Id%22%3Anull%2C%22gruppierung5Id%22%3Anull%2C%22gruppierung6Id%22%3Anull%2C%22inGrp%22%3Afalse%2C%22unterhalbGrp%22%3Afalse%2C%22privacy%22%3A%22%22%2C%22searchType%22%3A%22MITGLIEDER%22%7D&page=1&start=0&limit=10'
-        
+
         r = self.s.request(method, url)
 
         return self._check_response(r)
@@ -81,14 +80,13 @@ class Nami(object):
         r = self.s.request(method, url)
         return self._check_response(r)
 
-    def userById(self,mglied,method="GET"):
-    
+    def userById(self, mglied, method="GET"):
+
         url = f'https://mv.meinbdp.de/ica/rest/nami/mitglied/filtered-for-navigation/gruppierung/gruppierung/253/{mglied}?_dc=1647435214372'
         r = self.s.request(method, url)
         return self._check_response(r)
-    
-    
-    def schulungAnlegen(self,mglied,schulung,method="POST"):
+
+    def schulungAnlegen(self, mglied, schulung, method="POST"):
         payload = {
             "baustein": None,
             "bausteinId": 17,
@@ -97,13 +95,13 @@ class Nami(object):
             "vstgName": "",
             "veranstalter": "",
             "lastModifiedFrom": None
-            }
+        }
         url = f'ttps://mv.meinbdp.de/ica/rest/nami/mitglied-ausbildung/filtered-for-navigation/mitglied/mitglied/57755'
         r = self.s.post(url, data=payload)
         if r.status_code != 200:
             raise ValueError('mod failed')
-
         return self.s
+
 
 class Console():
     def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=100, fill='█', printEnd="\r"):
