@@ -111,7 +111,7 @@ class UserIDAndData(object):
             return returnVar[0]
 
         except:
-            return ["ERROR: compareUserDataToInput"]
+            return "ERROR: compareUserDataToInput"
 
     def getUserIDAndData(nami, user, vorname, name):
         try:
@@ -179,8 +179,9 @@ class UserIDAndData(object):
                 for x in filterList:
                     if not x in i['entries_taetigkeit']:
                         continue
-                    if not UserIDAndData.checkValidDate(i["entries_aktivBis"], dateToCompare):
-                        continue
+                    if i["entries_aktivBis"] != "":
+                        if not UserIDAndData.checkValidDate(i["entries_aktivBis"], dateToCompare):
+                            continue
                     return i['entries_taetigkeit']
             return "ERROR: keine Tätigkeit (ERROR)"
 
