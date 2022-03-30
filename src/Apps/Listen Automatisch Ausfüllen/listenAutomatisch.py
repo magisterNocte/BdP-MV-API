@@ -17,7 +17,7 @@ nami = Nami(config)
 nami.auth(username, password)
 
 # excel init
-sourceWb = load_workbook(path + "\data\sourceData.xlsx")  # TODO: evlt eine source und outputdatei einfügen
+sourceWb = load_workbook(path + "\data\sourceData.xlsx") 
 sourceWs = sourceWb.active
 
 newWb = Workbook()
@@ -58,6 +58,8 @@ def fillInExcel(userDetails, rowNum):
             case "LV":
                 newWs[get_column_letter(i) + rowNum] = UID.stammesIdToLV(userDetails[1]["gruppierung"])[1]
             case "Geburtstag":
+                newWs[get_column_letter(i) + rowNum] = userDetails[1]["geburtsDatum"]
+            case "Geburtsdatum":
                 newWs[get_column_letter(i) + rowNum] = userDetails[1]["geburtsDatum"]
             case "Email":
                 newWs[get_column_letter(i) + rowNum] = userDetails[1]["email"]
