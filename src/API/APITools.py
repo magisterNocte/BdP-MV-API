@@ -19,7 +19,7 @@ class NamiHTTPError(Exception):
     pass
 
 
-class Nami(object):
+class Nami():
 
     def __init__(self, config):
         self.s = requests.Session()

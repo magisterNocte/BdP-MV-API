@@ -13,7 +13,7 @@ from API.APITools import Nami
 # variables
 
 
-class UserIDAndData(object):
+class UserIDAndData():
     path = str(pathlib.Path(__file__).parent.resolve())
     bundesTaetigkeitIDs = [
         """
@@ -92,6 +92,7 @@ class UserIDAndData(object):
         "(116)"
     ]
 
+    @staticmethod
     def compareUserDataToInput(user, vorname, nachname):
         returnVar = []
         try:
@@ -113,6 +114,7 @@ class UserIDAndData(object):
         except:
             return "ERROR: compareUserDataToInput"
 
+    @staticmethod
     def getUserIDAndData(nami, user, vorname, name):
         try:
             if user == []:
@@ -124,12 +126,14 @@ class UserIDAndData(object):
         except:
             return ["ERROR: getUserID"]
 
+    @staticmethod
     def getUserEfZInfo(nami, user):
         try:
             return Nami.fuehrungsZeugnisInfo(nami, user)[0]["entries_erstelltAm"]
         except:
             return "ERROR: Kein efz Eintrag!"
 
+    @staticmethod
     def stammesIdToLV(stammesID):
 
         match stammesID[-6:-4]:
@@ -162,6 +166,7 @@ class UserIDAndData(object):
             case "14":
                 return ["BUND", "BUND"]
 
+    @staticmethod
     def plzZuBundesland(plz):
 
         f = open(UserIDAndData.path + '\data\plzListe.csv')
@@ -173,6 +178,7 @@ class UserIDAndData(object):
 
         return "ERROR: PLZ zu Bundesland geht nicht"
 
+    @staticmethod
     def userTätigkeit(nami, userId, filterList, dateToCompare=0):
         try:
             for i in nami.taetigkeit(userId):
@@ -188,6 +194,7 @@ class UserIDAndData(object):
         except:
             return "ERROR: Fehler bei den tätigkeiten"
 
+    @staticmethod
     def checkValidDate(date, dayOffsetDays=0):
         datetime_obj = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
         if not date:
@@ -196,5 +203,11 @@ class UserIDAndData(object):
             return False
         return True
 
+    @staticmethod
+    def formatDate(date):
+        newDate = date[8:10] + "." + date[5:7] + "." + date[0:4]
+        return newDate
+
+    @staticmethod
     def schulungAnlegen(nami, userID):
         nami.schulungAnlegen()

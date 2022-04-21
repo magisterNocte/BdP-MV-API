@@ -17,7 +17,7 @@ nami = Nami(config)
 nami.auth(username, password)
 
 # excel init
-sourceWb = load_workbook(path + "\data\sourceData.xlsx") 
+sourceWb = load_workbook(path + "\data\sourceData.xlsx")
 sourceWs = sourceWb.active
 
 newWb = Workbook()
@@ -32,48 +32,54 @@ def fillInExcel(userDetails, rowNum):
         return
     for i in range(1, sourceWs.max_column+1):
         newWs[get_column_letter(i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
-        match sourceWs[get_column_letter(i) + "1"].value:
-            case "Vorname":
+        match sourceWs[get_column_letter(i) + "1"].value.lower():
+            case "vorname":
                 newWs[get_column_letter(i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
-            case "Nachname":
+            case "nachname":
                 newWs[get_column_letter(i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
-            case "Name":
+            case "name":
                 newWs[get_column_letter(i) + rowNum] = userDetails[1]["vorname"] + " " + userDetails[1]["nachname"]
-            case "ID":
+            case "id":
                 newWs[get_column_letter(i) + rowNum] = userDetails[0]
-            case "Straße":
+            case "straße":
                 newWs[get_column_letter(i) + rowNum] = userDetails[1]["strasse"]
-            case "PLZ":
+            case "plz":
                 newWs[get_column_letter(i) + rowNum] = userDetails[1]["plz"]
-            case "PLZ/Ort":
+            case "plz/ort":
                 newWs[get_column_letter(i) + rowNum] = userDetails[1]["plz"] + " " + userDetails[1]["ort"]
-            case "Adresse":
+            case "ort":
+                newWs[get_column_letter(i) + rowNum] = userDetails[1]["ort"]
+            case "adresse":
                 newWs[get_column_letter(i) + rowNum] = userDetails[1]["strasse"] + " " + userDetails[1]["plz"] + " " + userDetails[1]["ort"]
-            case "Gechlecht":
+            case "gechlecht m/w":
                 newWs[get_column_letter(i) + rowNum] = "m" if userDetails[1]["geschlecht"] == "männlich" else "w"
-            case "Bundesland":
+            case "geschlecht":
+                newWs[get_column_letter(i) + rowNum] = userDetails[1]["geschlecht"]
+            case "bundesland":
                 newWs[get_column_letter(i) + rowNum] = UID.plzZuBundesland(userDetails[1]["plz"])
-            case "Telefon":
+            case "telefon":
                 newWs[get_column_letter(i) + rowNum] = userDetails[1]["telefon1"] if userDetails[1]["telefon1"] != "" else userDetails[1]["telefon2"] if userDetails[1]["telefon2"] != "" else userDetails[1]["telefon3"]
-            case "LV":
+            case "telefonnummer":
+                newWs[get_column_letter(i) + rowNum] = userDetails[1]["telefon1"] if userDetails[1]["telefon1"] != "" else userDetails[1]["telefon2"] if userDetails[1]["telefon2"] != "" else userDetails[1]["telefon3"]
+            case "lv":
                 newWs[get_column_letter(i) + rowNum] = UID.stammesIdToLV(userDetails[1]["gruppierung"])[1]
-            case "Geburtstag":
-                newWs[get_column_letter(i) + rowNum] = userDetails[1]["geburtsDatum"]
-            case "Geburtsdatum":
-                newWs[get_column_letter(i) + rowNum] = userDetails[1]["geburtsDatum"]
-            case "Email":
+            case "geburtstag":
+                newWs[get_column_letter(i) + rowNum] = UID.formatDate(str(userDetails[1]["geburtsDatum"])[0:10])
+            case "geburtsdatum":
+                newWs[get_column_letter(i) + rowNum] = UID.formatDate(str(userDetails[1]["geburtsDatum"])[0:10])
+            case "email":
                 newWs[get_column_letter(i) + rowNum] = userDetails[1]["email"]
-            case "eFZ":
+            case "efz":
                 newWs[get_column_letter(i) + rowNum] = UID.getUserEfZInfo(nami, userDetails[0])
-            case "E/H":
+            case "e/h":
                 newWs[get_column_letter(i) + rowNum] = "E" if UID.userTätigkeit(nami, userDetails[0], UID.hauptamtlicheIDs) == "ERROR: keine Tätigkeit (ERROR)" else "H"
-            case "Tätigkeit/Bula":
+            case "tätigkeit/bula":
                 newWs[get_column_letter(i) + rowNum] = UID.userTätigkeit(nami, userDetails[0], UID.bulaTätigkeitenIDs).split("(")[0]
-            case "Tätigkeit/Bund":
+            case "tätigkeit/bund":
                 newWs[get_column_letter(i) + rowNum] = UID.userTätigkeit(nami, userDetails[0], UID.bundesTaetigkeitIDs).split("(")[0]
-            case "Tätigkeit/Bund-365":
+            case "tätigkeit/bund-365":
                 newWs[get_column_letter(i) + rowNum] = UID.userTätigkeit(nami, userDetails[0], UID.bundesTaetigkeitIDs, -365).split("(")[0]
-            case "Tätigkeit/Hauptamtlich":
+            case "tätigkeit/hauptamtlich":
                 newWs[get_column_letter(i) + rowNum] = UID.userTätigkeit(nami, userDetails[0], UID.hauptamtlicheIDs).split("(")[0]
 
 
