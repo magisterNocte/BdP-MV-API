@@ -11,7 +11,7 @@ Dafür muss die user.csv als outlook_data.xlsx im data order des Projekts abgesp
 
 from openpyxl import Workbook, load_workbook
 
-from Tools.outlookDataConverterTools import excelHandling as exH
+from ConverterTools.outlookDataConverterTools import excelHandling as exH
 
 
 def main():
