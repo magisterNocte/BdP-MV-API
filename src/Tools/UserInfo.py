@@ -1,3 +1,5 @@
+import logging
+
 from Tools.APITools import Nami
 from Tools.Utility import Utility
 
@@ -6,43 +8,33 @@ class UserInfo():
     @staticmethod
     def compareUserDataToInput(user, vorname, nachname):
         returnVar = []
-        try:
-            if len(user) == 1:
-
-                return user[0]["entries_id"]
-            for i in user:
-                if i["entries_vorname"] == vorname and i["entries_nachname"] == nachname:
-                    returnVar.append(i["entries_id"])
-                if i["entries_vorname"] != vorname:
-                    returnVar.append("ERROR: Fehler beim Vorname!")
-                if i["entries_nachname"] != nachname:
-                    returnVar.append("ERROR: Fehler beim Nachname!")
-
-            if len(returnVar[0]) != 1:
-                return "ERROR : Mehr als ein user mit dem gleichen Namen"
-            return returnVar[0]
-
-        except:
-            return "ERROR: compareUserDataToInput"
+        logging.info(user)
+        if len(user) == 1:
+            return user[0]["entries_id"]
+        for i in user:
+            if i["entries_vorname"] == vorname and i["entries_nachname"] == nachname:
+                logging.info("compareUserDataToInput - if Vor und Nachname")
+                returnVar.append(i["entries_id"])
+        if len(returnVar) != 1:
+            return "ERROR : Mehr als ein user mit dem gleichen Namen"
+        return returnVar[0]
 
     @staticmethod
-    def getUserIDAndData(nami, user, vorname, name):
-        try:
-            if user == []:
-                return ["ERROR: No user!"]
-            id = UserInfo.compareUserDataToInput(user, vorname, name)
-            if isinstance(id, int) == True:
-                return [id, nami.userById(id)]
-            return [id]
-        except:
-            return ["ERROR: getUserID"]
+    def getUserIDAndData(nami, user, vorname, nachname):
+
+        if user == []:
+            return ["ERROR: No user!"]
+        id = UserInfo.compareUserDataToInput(user, vorname, nachname)
+        if isinstance(id, int) == True:
+            return [id, nami.userById(id)]
+        return [id]
 
     @staticmethod
     def getUserEfZInfo(nami, user):
         try:
-            return Nami.fuehrungsZeugnisInfo(nami, user)[0]["entries_erstelltAm"]
+            return nami.fuehrungsZeugnisInfo(user)[-1]["entries_erstelltAm"]
         except:
-            return "ERROR: Kein efz Eintrag!"
+            return "Kein efz Eintrag!"
 
     @staticmethod
     def userTätigkeit(nami, userId, filterList, dateToCompare=0):
