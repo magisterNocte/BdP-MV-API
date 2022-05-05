@@ -7,10 +7,12 @@ class EditUser:
         self.mglied = UserInfo.getUserIDAndData(
             nami, self.user, vorname, nachname)[0]
         self.nami = nami
+        self.vorname = vorname
+        self.nachname = nachname
 
-    def schulungAnlegen(self, schulungsId, vorname, nachname, datum):
+    def schulungAnlegen(self, schulungsId,  datum):
         self.nami.schulungAnlegen(
-            self.mglied, schulungsId, vorname, nachname, datum)
+            self.mglied, schulungsId, self.vorname, self.nachname, datum)
 
     def taetigkeitAnlegen(self, taetigkeitsId, gruppierungsName, gruppierungsID, aktivVon, aktivBis=None):
         self.nami.taetigkeitAnlegen(
