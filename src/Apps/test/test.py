@@ -17,6 +17,6 @@ password = config("PASSWORD")
 config = []
 nami = Nami(config)
 nami.auth(username, password)
-
-print(nami.bla(116))
+for i in nami.userMitTätigkeit(116):
+    print(i["entries_vorname"])
 
