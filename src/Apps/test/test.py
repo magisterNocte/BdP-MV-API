@@ -17,3 +17,6 @@ password = config("PASSWORD")
 config = []
 nami = Nami(config)
 nami.auth(username, password)
+
+print(nami.bla(116))
+

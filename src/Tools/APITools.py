@@ -88,6 +88,14 @@ class Nami():
         r = self.s.request(method, url)
         return self._check_response(r)
 
+    
+    def userMitTätigkeit(self, tätigkeitID, method='GET'):
+        url = f'https://mv.meinbdp.de/ica/rest/nami/search-multi/result-list?_dc=1652274221216&searchedValues=%7B%22vorname%22%3A%22%22%2C%22nachname%22%3A%22%22%2C%22spitzname%22%3A%22%22%2C%22mitgliedsNummber%22%3A%22%22%2C%22mglWohnort%22%3A%22%22%2C%22alterVon%22%3A%22%22%2C%22alterBis%22%3A%22%22%2C%22mglStatusId%22%3Anull%2C%22funktion%22%3A%22%22%2C%22mglTypeId%22%3A%5B%5D%2C%22organisation%22%3A%22%22%2C%22tagId%22%3A%5B%5D%2C%22bausteinIncludedId%22%3A%5B%5D%2C%22zeitschriftenversand%22%3Afalse%2C%22searchName%22%3A%22%22%2C%22taetigkeitId%22%3A%5B{tätigkeitID}%5D%2C%22untergliederungId%22%3A%5B%5D%2C%22mitAllenTaetigkeiten%22%3Afalse%2C%22withEndedTaetigkeiten%22%3Afalse%2C%22ebeneId%22%3Anull%2C%22grpNummer%22%3A%22%22%2C%22grpName%22%3A%22%22%2C%22gruppierung1Id%22%3Anull%2C%22gruppierung2Id%22%3Anull%2C%22gruppierung3Id%22%3Anull%2C%22gruppierung4Id%22%3Anull%2C%22gruppierung5Id%22%3Anull%2C%22gruppierung6Id%22%3Anull%2C%22inGrp%22%3Afalse%2C%22unterhalbGrp%22%3Afalse%2C%22privacy%22%3A%22%22%2C%22searchType%22%3A%22MITGLIEDER%22%7D&page=1&start=0&limit=10'
+        r = self.s.request(method, url)
+        
+        return self._check_response(r)
+    
+    
     # POST requests
 
     def schulungAnlegen(self, mglied, schulungsId, vorname, nachname, datum):  # mglied, schulung
@@ -127,3 +135,6 @@ class Nami():
             print(r.status_code)
             raise ValueError('mod failed')
         return self.s
+
+    def dosomething():
+        print ("hello")
