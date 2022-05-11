@@ -136,5 +136,4 @@ class Nami():
             raise ValueError('mod failed')
         return self.s
 
-    def dosomething():
-        print ("hello")
+
