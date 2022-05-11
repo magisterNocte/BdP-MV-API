@@ -10,7 +10,7 @@ from Tools.UserInfo import UserInfo as UserInfo
 logging.basicConfig(level=logging.INFO)
 # variables
 path = str(pathlib.Path(__file__).parent.resolve())
-username = config("USER")
+username = config("MVUSERNAME")
 password = config("PASSWORD")
 
 

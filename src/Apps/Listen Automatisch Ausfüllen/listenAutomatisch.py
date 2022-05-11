@@ -11,7 +11,7 @@ from Tools.Utility import Utility
 logging.basicConfig(level=logging.ERROR)
 # variables
 path = str(pathlib.Path(__file__).parent.resolve())
-username = config("USER")
+username = config("MVUSERNAME")
 password = config("PASSWORD")
 
 
