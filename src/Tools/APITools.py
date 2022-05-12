@@ -98,13 +98,13 @@ class Nami():
     
     # POST requests
 
-    def schulungAnlegen(self, mglied, schulungsId, vorname, nachname, datum):  # mglied, schulung
+    def schulungAnlegen(self, mglied, schulungsId, vorname, nachname, datum,alterNativerName):  # mglied, schulung
         payload = {
             'baustein': None,
             'bausteinId': schulungsId,  # TODO: liste mit schulungsbausteinsids herrausfinden
             'mitglied': f'{nachname.lower().capitalize()}, {vorname.lower().capitalize()}',
             'vstgTag': f'{datum}T00:00:00',
-            'vstgName': '',
+            'vstgName': alterNativerName,
             'veranstalter': '',
             'lastModifiedFrom': None
         }

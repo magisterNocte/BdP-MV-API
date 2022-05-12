@@ -17,5 +17,5 @@ nami = Nami(config)
 nami.auth(username, password)
 
 tempUser = EditUser(nami, "yannik", "menge")
-#tempUser.schulungAnlegen(17, "yAnnik", "MenGe", "2022-12-11")
-tempUser.taetigkeitAnlegen(193, "Leviatan 077222", 253, "2022-12-11")
+tempUser.schulungAnlegen(17, "2022-12-11", "Bula22 Intakt Schulung")
+#tempUser.taetigkeitAnlegen(193, "Leviatan 077222", 253, "2022-12-11")

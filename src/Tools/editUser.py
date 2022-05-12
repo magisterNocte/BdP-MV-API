@@ -10,9 +10,9 @@ class EditUser:
         self.vorname = vorname
         self.nachname = nachname
 
-    def schulungAnlegen(self, schulungsId,  datum):
+    def schulungAnlegen(self, schulungsId,  datum,alterNativerName=""):
         self.nami.schulungAnlegen(
-            self.mglied, schulungsId, self.vorname, self.nachname, datum)
+            self.mglied, schulungsId, self.vorname, self.nachname, datum, alterNativerName)
 
     def taetigkeitAnlegen(self, taetigkeitsId, gruppierungsName, gruppierungsID, aktivVon, aktivBis=None):
         self.nami.taetigkeitAnlegen(
