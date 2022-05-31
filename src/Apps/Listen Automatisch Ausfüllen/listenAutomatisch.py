@@ -123,7 +123,7 @@ for i in range(2, sourceWs.max_row + 1):
         newWs["A" + rowNum] = "ERROR: Fehlerhafter Name"
         continue
 
-    vornameTemp = sourceWs["B" + rowNum].value.strip().split()[0]
+    vornameTemp = sourceWs["B" + rowNum].value.strip().split()[0].split("-")[0]
     nachnameTemp = sourceWs["C" + rowNum].value.strip()
     print(vornameTemp, nachnameTemp)
     user = nami.user(vornameTemp, nachnameTemp)
@@ -134,3 +134,8 @@ for i in range(2, sourceWs.max_row + 1):
 
 sourceWb.save(path + "\\data\\sourceData.xlsx")
 newWb.save(path + "\\data\\newWB.xlsx")
+
+
+
+
+

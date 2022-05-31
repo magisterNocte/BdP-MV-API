@@ -32,7 +32,7 @@ class UserInfo():
     @staticmethod
     def getUserEfZInfo(nami, user):
         try:
-            return nami.fuehrungsZeugnisInfo(user)[-1]["entries_erstelltAm"]
+            return nami.fuehrungsZeugnisInfo(user)[-1]["entries_fzDatum"]
         except:
             return "Kein efz Eintrag!"
 

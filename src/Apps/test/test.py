@@ -18,6 +18,6 @@ config = []
 nami = Nami(config)
 nami.auth(username, password)
 
-for i in nami.userMitTätigkeit(116):
-    print(i["entries_vorname"])
-
+#for i in nami.userMitTätigkeit(116):
+#    print(i["entries_vorname"])
+print(nami.fuehrungsZeugnisInfo(57755)[-1])
