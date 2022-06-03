@@ -1,5 +1,8 @@
 # docs: https://doku.dpsg.de/display/NAMI/Service+Architektur
 
+import json
+import urllib.parse
+
 import requests
 from decouple import config
 
@@ -30,6 +33,9 @@ class Nami():
         }
         self.config.update(config)
 
+    def __del__(self):
+        self.s.close()
+
     def auth(self, username, password):
         payload = {
             'Login': 'API',
@@ -55,6 +61,22 @@ class Nami():
                 'succes state from NAMI was %s %s' % (rjson['message'], rjson))
         return rjson['data']
 
+    # generelle search funktion
+    def search(self, parameter: dict, limit: 1):
+
+        parameter["searchType"] = "MITGLIEDER"
+        parameter["inGrp"] = True
+        search_value = json.dumps(parameter)
+        search_values = urllib.parse.quote(search_value)
+        limit = int(limit)
+        start = 0
+        page = 1
+
+        url = f'https://mv.meinbdp.de/ica/rest/nami/search-multi/result-list?_dc=1652274221216&searchedValues={search_values}&page={page}&start={start}&limit={limit}'
+        r = self.s.request('GET', url)
+
+        return self._check_response(r)
+
     # GET requests
 
     def user(self, mitglied_vorname, mitglied_nachname, method='GET'):
@@ -64,7 +86,7 @@ class Nami():
 
         return self._check_response(r)
 
-    def taetigkeit(self, mglid, method='GET'):
+    def userTaetigkeit(self, mglid, method='GET'):
         url = "%s/ica/rest/nami/zugeordnete-taetigkeiten/filtered-for-navigation/gruppierung-mitglied/mitglied/%s/flist?_dc=1636459771397&page=1&start=0&limit=20" % (
             self.config['server'], mglid)
         r = self.s.request(method, url)
@@ -88,17 +110,21 @@ class Nami():
         r = self.s.request(method, url)
         return self._check_response(r)
 
-    
     def userMitTätigkeit(self, tätigkeitID, method='GET'):
         url = f'https://mv.meinbdp.de/ica/rest/nami/search-multi/result-list?_dc=1652274221216&searchedValues=%7B%22taetigkeitId%22%3A%5B{tätigkeitID}%5D%2C%22searchType%22%3A%22MITGLIEDER%22%7D&page=1&start=0&limit=9999'
         r = self.s.request(method, url)
-        
+
         return self._check_response(r)
-    
-    
+
+    def userSchulung(self, mglied, method='GET'):
+        url = f'https://mv.meinbdp.de/ica/rest/nami/mitglied-ausbildung/filtered-for-navigation/mitglied/mitglied/{mglied}/flist?_dc=1654165754686&page=1&start=0&limit=40'
+        r = self.s.request(method, url)
+
+        return self._check_response(r)
+
     # POST requests
 
-    def schulungAnlegen(self, mglied, schulungsId, vorname, nachname, datum,alterNativerName):  # mglied, schulung
+    def schulungAnlegen(self, mglied, schulungsId, vorname, nachname, datum, alterNativerName):  # mglied, schulung
         payload = {
             'baustein': None,
             'bausteinId': schulungsId,  # TODO: liste mit schulungsbausteinsids herrausfinden
@@ -135,5 +161,3 @@ class Nami():
             print(r.status_code)
             raise ValueError('mod failed')
         return self.s
-
-

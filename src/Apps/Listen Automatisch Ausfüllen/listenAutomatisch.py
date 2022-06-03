@@ -107,6 +107,9 @@ def fillInExcel(userDetails, rowNum):
             case "tätigkeit/hauptamtlich":
                 newWs[get_column_letter(i) + rowNum] = UserInfo.userTätigkeit(
                     nami, userDetails[0], "hauptamtlicheIDs.csv").split("(")[0]
+            case "intakt":
+                newWs[get_column_letter(
+                    i) + rowNum] = UserInfo.userSchulung(nami, userDetails[0], "Bula22 Intakt Schulung")
 
 
 def copyFirstLine():
@@ -134,8 +137,3 @@ for i in range(2, sourceWs.max_row + 1):
 
 sourceWb.save(path + "\\data\\sourceData.xlsx")
 newWb.save(path + "\\data\\newWB.xlsx")
-
-
-
-
-

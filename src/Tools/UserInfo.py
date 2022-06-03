@@ -4,6 +4,7 @@ from Tools.APITools import Nami
 from Tools.Utility import Utility
 
 
+# TODO: Throw Exceptions on ERROR
 class UserInfo():
     @staticmethod
     def compareUserDataToInput(user, vorname, nachname):
@@ -38,7 +39,7 @@ class UserInfo():
 
     @staticmethod
     def userTätigkeit(nami, userId, filterList, dateToCompare=0):
-        for i in nami.taetigkeit(userId):
+        for i in nami.userTaetigkeit(userId):
             for x in Utility.getIDsFromCsvAsList(filterList):
                 if not x in i['entries_taetigkeit']:
                     continue
@@ -47,3 +48,8 @@ class UserInfo():
                         continue
                 return i['entries_taetigkeit']
         return "ERROR: keine Tätigkeit (ERROR)"
+
+    def userSchulung(nami, userID, vstgName):
+        for i in nami.userSchulung(userID):
+            if i["entries_vstgName"] == vstgName:
+                return i["entries_vstgTag"]
