@@ -20,7 +20,7 @@ nami = Nami(config)
 nami.auth(username, password)
 
 # excel init
-sourceWb = load_workbook(path + "\data\sourceData.xlsx")
+sourceWb = load_workbook(path + "\data\sourceDataID.xlsx")
 sourceWs = sourceWb.active
 
 newWb = Workbook()
@@ -31,14 +31,13 @@ def fillInExcel(userDetails, rowNum):
     if not isinstance(userDetails[0], int):
         newWs["A" + rowNum] = userDetails[0]
         newWs["B" + rowNum] = sourceWs["B" + rowNum].value
-        newWs["C" + rowNum] = sourceWs["C" + rowNum].value
         return
     for i in range(1, sourceWs.max_column+1):
         newWs[get_column_letter(
             i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
         if sourceWs[get_column_letter(i) + "1"].value is None:
             continue
-        match sourceWs[get_column_letter(i) + "1"].value.lower().strip():
+        match sourceWs[get_column_letter(i) + "1"].value.lower():
             case "vorname":
                 newWs[get_column_letter(
                     i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
@@ -124,19 +123,16 @@ copyFirstLine()
 for i in range(2, sourceWs.max_row + 1):
     rowNum = str(i)
 
-    if not sourceWs["B" + rowNum].value or not sourceWs["C" + rowNum].value:
-        newWs["A" + rowNum] = "ERROR: Fehlerhafter Name"
+    if not sourceWs["B" + rowNum].value:
+        newWs["A" + rowNum] = "ERROR: Keine ID"
         continue
 
-    vornameTemp = sourceWs["B" + rowNum].value.strip().split()[0].split("-")[0]
-    nachnameTemp = sourceWs["C" + rowNum].value.strip()
-    print(vornameTemp, nachnameTemp)
-    user = nami.user(vornameTemp, nachnameTemp)
-    userDetails = UserInfo.getUserIDAndData(
-        nami, user, vornameTemp, nachnameTemp)
+    user = sourceWs["B" + rowNum].value
+    print(user)
+    userDetails = [user, nami.search({"mitgliedsNummber": user}, 10)]
     fillInExcel(userDetails, rowNum)
 
 
-newWb.save(path + "\\data\\newWB.xlsx")
+newWb.save(path + "\\data\\newWBID.xlsx")
 sourceWb.close()
 newWb.close()

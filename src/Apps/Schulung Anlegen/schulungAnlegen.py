@@ -51,7 +51,6 @@ for i in range(2, sourceWs.max_row + 1):
     else:
         tempUser.schulungAnlegen(
             21, str(sourceWs["E" + str(i)].value)[0:10], "Bula22 Intakt Schulung")
-
         newWs["F" +
               str(i)] = f'success {UserInfo.userSchulung(nami, tempUser.mglied, "Bula22 Intakt Schulung")}'
         print(sourceWs["A" + str(i)].value,
