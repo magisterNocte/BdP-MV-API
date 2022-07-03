@@ -41,10 +41,10 @@ def fillInExcel(userDetails, rowNum):
         match sourceWs[get_column_letter(i) + "1"].value.lower().strip():
             case "vorname":
                 newWs[get_column_letter(
-                    i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
+                    i) + rowNum] = userDetails[1]["vorname"]
             case "nachname":
                 newWs[get_column_letter(
-                    i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
+                    i) + rowNum] = userDetails[1]["nachname"]
             case "name":
                 newWs[get_column_letter(
                     i) + rowNum] = userDetails[1]["vorname"] + " " + userDetails[1]["nachname"]
@@ -81,6 +81,9 @@ def fillInExcel(userDetails, rowNum):
             case "lv":
                 newWs[get_column_letter(
                     i) + rowNum] = Utility.stammesIdToLV(userDetails[1]["gruppierung"])[1]
+            case "stamm":
+                newWs[get_column_letter(
+                    i) + rowNum] = userDetails[1]["gruppierung"]
             case "geburtstag":
                 newWs[get_column_letter(
                     i) + rowNum] = Utility.formatDate(str(userDetails[1]["geburtsDatum"])[0:10])

@@ -32,7 +32,7 @@ class Utility:
 
     @staticmethod
     def stammesIdToLV(stammesID):
-        match stammesID[-6:-4]:
+        match str(stammesID)[-6:-4]:
             case "01":
                 return ["Baden-Württemberg", "BaWü"]
             case "02":

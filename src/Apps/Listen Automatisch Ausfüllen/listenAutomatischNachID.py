@@ -32,6 +32,7 @@ def fillInExcel(userDetails, rowNum):
         newWs["A" + rowNum] = userDetails[0]
         newWs["B" + rowNum] = sourceWs["B" + rowNum].value
         return
+
     for i in range(1, sourceWs.max_column+1):
         newWs[get_column_letter(
             i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
@@ -40,54 +41,57 @@ def fillInExcel(userDetails, rowNum):
         match sourceWs[get_column_letter(i) + "1"].value.lower():
             case "vorname":
                 newWs[get_column_letter(
-                    i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
+                    i) + rowNum] = userDetails[1][0]["entries_vorname"]
             case "nachname":
                 newWs[get_column_letter(
-                    i) + rowNum] = sourceWs[get_column_letter(i) + rowNum].value
+                    i) + rowNum] = userDetails[1][0]["entries_nachname"]
             case "name":
                 newWs[get_column_letter(
-                    i) + rowNum] = userDetails[1]["vorname"] + " " + userDetails[1]["nachname"]
+                    i) + rowNum] = userDetails[1][0]["entries_vorname"] + " " + userDetails[1][0]["entries_nachname"]
             case "id":
                 newWs[get_column_letter(i) + rowNum] = userDetails[0]
             case "straße":
                 newWs[get_column_letter(
-                    i) + rowNum] = userDetails[1]["strasse"]
+                    i) + rowNum] = userDetails[1][0]["entries_strasse"]
             case "plz":
-                newWs[get_column_letter(i) + rowNum] = userDetails[1]["plz"]
+                newWs[get_column_letter(i) + rowNum] = userDetails[1][0]["entries_plz"]
             case "plz/ort":
                 newWs[get_column_letter(
-                    i) + rowNum] = userDetails[1]["plz"] + " " + userDetails[1]["ort"]
+                    i) + rowNum] = userDetails[1][0]["entries_plz"] + " " + userDetails[1][0]["entries_ort"]
             case "ort":
-                newWs[get_column_letter(i) + rowNum] = userDetails[1]["ort"]
+                newWs[get_column_letter(i) + rowNum] = userDetails[1][0]["entries_ort"]
             case "adresse":
-                newWs[get_column_letter(i) + rowNum] = userDetails[1]["strasse"] + \
-                    " " + userDetails[1]["plz"] + " " + userDetails[1]["ort"]
+                newWs[get_column_letter(i) + rowNum] = userDetails[1][0]["entries_strasse"] + \
+                    " " + userDetails[1][0]["entries_plz"] + " " + userDetails[1][0]["entries_ort"]
             case "geschlecht m/w":
                 newWs[get_column_letter(
-                    i) + rowNum] = "m" if userDetails[1]["geschlecht"] == "männlich" else "w"
+                    i) + rowNum] = "m" if userDetails[1][0]["entries_geschlecht"] == "männlich" else "w"
             case "geschlecht":
                 newWs[get_column_letter(
-                    i) + rowNum] = userDetails[1]["geschlecht"]
+                    i) + rowNum] = userDetails[1][0]["entries_geschlecht"]
             case "bundesland":
                 newWs[get_column_letter(
-                    i) + rowNum] = Utility.plzZuBundesland(userDetails[1]["plz"])
+                    i) + rowNum] = Utility.plzZuBundesland(userDetails[1][0]["entries_plz"])
             case "telefon":
                 newWs[get_column_letter(
-                    i) + rowNum] = userDetails[1]["telefon1"] if userDetails[1]["telefon1"] != "" else userDetails[1]["telefon2"] if userDetails[1]["telefon2"] != "" else userDetails[1]["telefon3"]
+                    i) + rowNum] = userDetails[1][0]["entries_telefon1"] if userDetails[1][0]["entries_telefon1"] != "" else userDetails[1][0]["entries_telefon2"] if userDetails[1][0]["entries_telefon2"] != "" else userDetails[1][0]["entries_telefon3"]
             case "telefonnummer":
                 newWs[get_column_letter(
-                    i) + rowNum] = userDetails[1]["telefon1"] if userDetails[1]["telefon1"] != "" else userDetails[1]["telefon2"] if userDetails[1]["telefon2"] != "" else userDetails[1]["telefon3"]
+                    i) + rowNum] = userDetails[1][0]["entries_telefon1"] if userDetails[1][0]["entries_telefon1"] != "" else userDetails[1][0]["entries_telefon2"] if userDetails[1][0]["entries_telefon2"] != "" else userDetails[1][0]["entries_telefon3"]
             case "lv":
                 newWs[get_column_letter(
-                    i) + rowNum] = Utility.stammesIdToLV(userDetails[1]["gruppierung"])[1]
+                    i) + rowNum] = Utility.stammesIdToLV(userDetails[1][0]["entries_gruppierung"])[0]
+            case "stamm":
+                newWs[get_column_letter(
+                    i) + rowNum] = userDetails[1][0]["entries_gruppierung"]
             case "geburtstag":
                 newWs[get_column_letter(
-                    i) + rowNum] = Utility.formatDate(str(userDetails[1]["geburtsDatum"])[0:10])
+                    i) + rowNum] = Utility.formatDate(str(userDetails[1][0]["entries_geburtsDatum"])[0:10])
             case "geburtsdatum":
                 newWs[get_column_letter(
-                    i) + rowNum] = Utility.formatDate(str(userDetails[1]["geburtsDatum"])[0:10])
+                    i) + rowNum] = Utility.formatDate(str(userDetails[1][0]["entries_geburtsDatum"])[0:10])
             case "email":
-                newWs[get_column_letter(i) + rowNum] = userDetails[1]["email"]
+                newWs[get_column_letter(i) + rowNum] = userDetails[1][0]["entries_email"]
             case "efz":
                 newWs[get_column_letter(
                     i) + rowNum] = UserInfo.getUserEfZInfo(nami, userDetails[0])
@@ -129,6 +133,10 @@ for i in range(2, sourceWs.max_row + 1):
 
     user = sourceWs["B" + rowNum].value
     print(user)
+    if not isinstance(user, int):
+        newWs["A" + rowNum] = "ERROR: Keine ID"
+        continue
+
     userDetails = [user, nami.search({"mitgliedsNummber": user}, 10)]
     fillInExcel(userDetails, rowNum)
 

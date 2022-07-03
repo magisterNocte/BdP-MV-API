@@ -18,11 +18,13 @@ config = []
 nami = Nami(config)
 nami.auth(username, password)
 
-user = nami.search({"mitgliedsNummber": "57755"}, 10)  # API Call
+print(",".join(i["entries_email"] for i in nami.search(
+    {"taetigkeitId": [10648], "gruppierung3Id": 474
+     }, 9999)))
+print(",".join(i["entries_email"] for i in nami.search(
+    {"taetigkeitId": [148], "gruppierung3Id": 474
 
-# die ersten zwei Stellen der StammesID stehen für den LV, 07 ist Niedersachsen
-if user[0]["entries_gruppierung"][-6:-4] == "07":
-    print("Dieser User ist in einem Stamm aus Niedersachsen")
-
-
-https: // mv.meinbdp.de/ica/rest/nami/search-multi/result-list?_dc = 1655278973138 & searchedValues = {"mitgliedsNummber": "57755""inGrp": True, "searchType": "MITGLIEDER"} & page = 1 & start = 0 & limit = 10
+     }, 9999)))
+print(",".join(i["entries_email"] for i in nami.search(
+    {"taetigkeitId": [170], "gruppierung3Id": 474
+     }, 9999)))

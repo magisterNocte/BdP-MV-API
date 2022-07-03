@@ -46,15 +46,12 @@ for i in range(2, sourceWs.max_row + 1):
 
     if not isinstance(tempUser.mglied, int):
         newWs["F" + str(i)] = tempUser.mglied
-        print(sourceWs["A" + str(i)].value,
-              sourceWs["B" + str(i)].value, tempUser.mglied)
+        print(sourceWs["A" + str(i)].value, sourceWs["B" + str(i)].value, tempUser.mglied)
     else:
         tempUser.schulungAnlegen(
             21, str(sourceWs["E" + str(i)].value)[0:10], "Bula22 Intakt Schulung")
-        newWs["F" +
-              str(i)] = f'success {UserInfo.userSchulung(nami, tempUser.mglied, "Bula22 Intakt Schulung")}'
-        print(sourceWs["A" + str(i)].value,
-              sourceWs["B" + str(i)].value, "success")
+        newWs["F" + str(i)] = f'success {UserInfo.userSchulung(nami, tempUser.mglied, "Bula22 Intakt Schulung")}'
+        print(sourceWs["A" + str(i)].value, sourceWs["B" + str(i)].value, "success")
 
 
 sourceWb.save(path + "\\data\\sourceData.xlsx")
