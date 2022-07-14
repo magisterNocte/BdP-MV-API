@@ -20,7 +20,7 @@ nami.auth(username, password)
 sourceWb = load_workbook(path + "\data\sourceData.xlsx")
 sourceWs = sourceWb.active
 
-"""
+
 for i in range(2, sourceWs.max_row + 1):
     if not sourceWs["A" + str(i)].value:
         continue
@@ -46,5 +46,6 @@ for i in range(2, sourceWs.max_row + 1):
     sourceWs["F" + str(i)] = ",".join(str(i["entries_id"]) for i in nami.search(
         {"taetigkeitId": [148], "gruppierung3Id": [int(sourceWs["A" + str(i)].value)]}, 10))
 
-
+"""
 sourceWb.save(path + "\\data\\sourceData.xlsx")
+sourceWb.close()
